@@ -17,14 +17,7 @@ for (int i = 0; i < arr.Length; i++)
 
 }
 
-int sum = 0;
-for (int i = 0; i < arr.Length; i++)
-{
-    sum = sum + arr[i];
-
-}
-
-double average = (double)sum / arr.Length;
+double average = arr.Average();
 Console.WriteLine($"The Average is : {average}");
 
 foreach (var item in arr)
@@ -58,7 +51,7 @@ for (int i = 0; i < numbers.Length; i++)
 Console.WriteLine();
 Console.WriteLine("the numbers in reverse");
 
-for (int i = numbers.Length - 1; i > 0; i--)
+for (int i = numbers.Length - 1; i >= 0; i--)
 {
     Console.WriteLine(numbers[i]);
 }
@@ -78,40 +71,38 @@ that does not repeat anywhere else in the string.*/
 
 Console.WriteLine("Enter Ur input");
 
-string input = Console.ReadLine();
+string? input = Console.ReadLine();
 
-Dictionary<char, int> freq = new Dictionary<char, int>();
-
-
-foreach (var item in input)
+if (string.IsNullOrEmpty(input))
 {
-
-    if (freq.ContainsKey(item))
-    {
-        freq[item]++;
-    }
-    else
-    {
-        freq[item] = 1;
-    }
-}
-
-char? firstNonRepeating = null;
-
-foreach (var ch in input)
-{
-    if (freq[ch] == 1)
-    {
-        firstNonRepeating = ch;
-        break;
-    }
-}
-
-if (firstNonRepeating != null)
-{
-    Console.WriteLine($"The first non-repeating character is: {firstNonRepeating}");
+    Console.WriteLine("No input provided.");
 }
 else
 {
-    Console.WriteLine("No non-repeating character found.");
+    Dictionary<char, int> freq = new Dictionary<char, int>();
+
+    foreach (var item in input)
+    {
+        freq[item] = freq.GetValueOrDefault(item, 0) + 1;
+    }
+
+    char? firstNonRepeating = null;
+
+    foreach (var ch in input)
+    {
+        if (freq[ch] == 1)
+        {
+            firstNonRepeating = ch;
+            break;
+        }
+    }
+
+    if (firstNonRepeating != null)
+    {
+        Console.WriteLine($"The first non-repeating character is: {firstNonRepeating}");
+    }
+    else
+    {
+        Console.WriteLine("No non-repeating character found.");
+    }
 }
